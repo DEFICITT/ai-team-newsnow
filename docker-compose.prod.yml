@@ -1,0 +1,35 @@
+# 生产部署：自建镜像（含 custom 分支定制）+ Caddy 自动 HTTPS
+# 用法：cp example.env.server .env  填好密钥后
+#       docker compose -f docker-compose.prod.yml up -d --build
+services:
+  newsnow:
+    build: .
+    container_name: newsnow
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4444
+      - NODE_ENV=production
+    volumes:
+      - newsnow_data:/usr/app/.data
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - newsnow
+    restart: unless-stopped
+
+volumes:
+  newsnow_data:
+  caddy_data:
+  caddy_config:
