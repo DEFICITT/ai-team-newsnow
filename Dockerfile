@@ -1,6 +1,7 @@
 FROM node:20.12.2-alpine AS builder
 WORKDIR /usr/src
-RUN apk add --no-cache python3 build-base
+RUN sed -i 's|dl-cdn.alpinelinux.org|mirrors.cloud.tencent.com|g' /etc/apk/repositories && \
+    apk add --no-cache python3 build-base
 COPY . .
 RUN corepack enable
 RUN pnpm config set registry https://registry.npmmirror.com && \
