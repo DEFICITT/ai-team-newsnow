@@ -1,7 +1,10 @@
 FROM node:20.12.2-alpine AS builder
 WORKDIR /usr/src
+RUN apk add --no-cache python3 build-base
 COPY . .
 RUN corepack enable
+RUN pnpm config set registry https://registry.npmmirror.com && \
+    pnpm config set better_sqlite3_binary_host_mirror https://registry.npmmirror.com/-/binary/better-sqlite3
 RUN pnpm install
 RUN pnpm run build
 
