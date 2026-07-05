@@ -1,4 +1,4 @@
 # Caddy 会自动为该域名申请并续期 Let's Encrypt 证书（需域名已解析到本机 + 80 端口可达）
-ai-team.site {
+ai-team.site, www.ai-team.site {
 	reverse_proxy newsnow:4444
 }
