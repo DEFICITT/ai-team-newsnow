@@ -5,6 +5,7 @@ import { VitePWA } from "vite-plugin-pwa"
 const pwaOption: Partial<VitePWAOptions> = {
   includeAssets: ["icon.svg", "apple-touch-icon.png"],
   filename: "swx.js",
+  registerType: "autoUpdate",
   manifest: {
     name: "AI-NewsNow",
     short_name: "AI-NewsNow",
@@ -36,6 +37,7 @@ const pwaOption: Partial<VitePWAOptions> = {
     ],
   },
   workbox: {
+    cleanupOutdatedCaches: true,
     navigateFallbackDenylist: [/^\/api/],
   },
   devOptions: {
