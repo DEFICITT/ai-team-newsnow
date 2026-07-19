@@ -3,6 +3,7 @@ WORKDIR /usr/src
 RUN sed -i 's|dl-cdn.alpinelinux.org|mirrors.cloud.tencent.com|g' /etc/apk/repositories && \
     apk add --no-cache python3 build-base
 COPY package.json pnpm-lock.yaml ./
+COPY patches ./patches
 RUN corepack enable
 RUN pnpm config set registry https://registry.npmmirror.com && \
     pnpm config set better_sqlite3_binary_host_mirror https://registry.npmmirror.com/-/binary/better-sqlite3
